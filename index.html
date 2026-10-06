@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clasificador de imágenes</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <header>
+            <h1>Clasificador de objetos</h1>
+            <p>
+                Modelo creado con Teachable Machine para reconocer
+                botellas, papel y fundas de gafas.
+            </p>
+        </header>
+
+        <section class="tarjeta">
+
+            <h2>Clasificación con cámara</h2>
+
+            <div id="webcam-container" class="camara">
+                <p id="mensaje-camara">
+                    Pulsa "Iniciar" para activar la cámara
+                </p>
+            </div>
+
+            <div class="botones">
+                <button id="btn-iniciar" onclick="iniciarCamara()">
+                    Iniciar
+                </button>
+
+                <button id="btn-parar" onclick="pararCamara()" disabled>
+                    Parar
+                </button>
+            </div>
+
+        </section>
+
+
+        <section class="tarjeta">
+
+            <h2>Coincidencia mínima</h2>
+
+            <div class="umbral">
+                <input
+                    type="range"
+                    id="umbral"
+                    min="0"
+                    max="100"
+                    value="70"
+                    oninput="actualizarUmbral()"
+                >
+
+                <span id="valor-umbral">70%</span>
+            </div>
+
+            <p class="texto-ayuda">
+                Solo se considerará una coincidencia cuando el resultado
+                supere este porcentaje.
+            </p>
+
+        </section>
+
+
+        <section class="tarjeta">
+
+            <h2>Resultado</h2>
+
+            <div id="mensaje-resultado" class="mensaje">
+                Esperando una imagen...
+            </div>
+
+            <div id="label-container"></div>
+
+        </section>
+
+
+        <section class="tarjeta">
+
+            <h2>Clasificar una imagen</h2>
+
+            <input
+                type="file"
+                id="imagen-input"
+                accept="image/*"
+                onchange="cargarImagen(event)"
+            >
+
+            <div class="imagen-subida">
+                <img id="imagen-preview" alt="">
+            </div>
+
+        </section>
+
+
+        <section class="tarjeta">
+
+            <div class="titulo-historial">
+                <h2>Historial de resultados</h2>
+
+                <button
+                    class="btn-borrar"
+                    onclick="borrarHistorial()"
+                >
+                    Borrar historial
+                </button>
+            </div>
+
+            <div id="historial">
+                <p id="historial-vacio">
+                    Todavía no hay resultados.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
